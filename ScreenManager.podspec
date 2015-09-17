@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ScreenManager"
-  s.version      = "1.1.0"
+  s.version      = "1.1.1"
   s.summary      = "Get notified when a new screen is available through airplay"
 
   s.description  = <<-DESC

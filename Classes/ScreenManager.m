@@ -37,6 +37,27 @@
 
 
 #pragma mark -
+#pragma mark Singleton Methods
+
+
+
+static ScreenManager* sharedInstance;
+
+
+
++ (ScreenManager*)sharedInstance
+{
+    if (!sharedInstance)
+    {
+        sharedInstance = [[ScreenManager alloc] init];
+    }
+    
+    return sharedInstance;
+}
+
+
+
+#pragma mark -
 #pragma mark Object Life Cycle Methods
 
 

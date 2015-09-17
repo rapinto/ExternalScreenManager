@@ -42,6 +42,7 @@
 @property (nonatomic, strong) NSMutableArray* delegates;
 
 
++ (ScreenManager*)sharedInstance;
 
 - (id)init;
 - (void)addDelegate:(id<ScreenManagerDelegate>)delegate;
