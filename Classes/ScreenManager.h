@@ -39,11 +39,13 @@
 
 
 
-@property (nonatomic, strong) id <ScreenManagerDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray* delegates;
 
 
 
-- (id)initWithDelegate:(id<ScreenManagerDelegate>)delegate;
+- (id)init;
+- (void)addDelegate:(id<ScreenManagerDelegate>)delegate;
+- (void)removeDelegate:(id<ScreenManagerDelegate>)delegate;
 
 
 

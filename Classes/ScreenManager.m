@@ -41,13 +41,13 @@
 
 
 
-- (id)initWithDelegate:(id<ScreenManagerDelegate>)delegate
+- (id)init
 {
     self = [super init];
     
     if (self)
     {
-        _delegate = delegate;
+        _delegates = [NSMutableArray array];
         [self checkForExistingScreens];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -62,6 +62,18 @@
     }
     
     return self;
+}
+
+
+- (void)addDelegate:(id<ScreenManagerDelegate>)delegate;
+{
+    [self.delegates addObject:delegate];
+}
+
+
+- (void)removeDelegate:(id<ScreenManagerDelegate>)delegate;
+{
+    [self.delegates removeObject:delegate];
 }
 
 
@@ -92,7 +104,10 @@
         {
             if (aScreen != [UIScreen mainScreen])
             {
-                [_delegate screenDidConnect:aScreen];
+                for (id<ScreenManagerDelegate> aDelegate in _delegates)
+                {
+                    [aDelegate screenDidConnect:aScreen];
+                }
             }
         }
     }
@@ -101,11 +116,15 @@
 
 - (void)handleScreenDidConnectNotification:(NSNotification*)notification
 {
-    if (_delegate && [notification object] && [[notification object] isKindOfClass:[UIScreen class]])
+    if ([_delegates count] > 0 && [notification object] && [[notification object] isKindOfClass:[UIScreen class]])
     {
         UIScreen* lScreen = (UIScreen*)[notification object];
         
-        [_delegate screenDidConnect:lScreen];
+        
+        for (id<ScreenManagerDelegate> aDelegate in _delegates)
+        {
+            [aDelegate screenDidConnect:lScreen];
+        }
     }
 }
 
@@ -116,7 +135,10 @@
     {
         UIScreen* lScreen = (UIScreen*)[notification object];
         
-        [_delegate screenDidDisconnect:lScreen];
+        for (id<ScreenManagerDelegate> aDelegate in _delegates)
+        {
+            [aDelegate screenDidDisconnect:lScreen];
+        }
     }
 }
 
