@@ -112,27 +112,45 @@ static ScreenManager* sharedInstance;
 
 
 #pragma mark -
-#pragma mark Screen Support Methods
+#pragma mark Public Methods
 
 
 
-- (void)checkForExistingScreens
+- (UIScreen*)externalScreen
 {
-    
     if ([[UIScreen screens] count] > 1)
     {
         for (UIScreen* aScreen in [UIScreen screens])
         {
             if (aScreen != [UIScreen mainScreen])
             {
-                for (id<ScreenManagerDelegate> aDelegate in _delegates)
-                {
-                    [aDelegate screenDidConnect:aScreen];
-                }
+                return aScreen;
             }
         }
     }
+    
+    return nil;
 }
+
+
+- (void)checkForExistingScreens
+{
+    UIScreen* lExternalScreen = [self externalScreen];
+    
+    if (lExternalScreen)
+    {
+        for (id<ScreenManagerDelegate> aDelegate in _delegates)
+        {
+            [aDelegate screenDidConnect:lExternalScreen];
+        }
+    }
+}
+
+
+
+#pragma mark -
+#pragma mark Screen Support Methods
+
 
 
 - (void)handleScreenDidConnectNotification:(NSNotification*)notification

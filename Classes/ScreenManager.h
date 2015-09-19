@@ -41,13 +41,15 @@
 
 @property (nonatomic, strong) NSMutableArray* delegates;
 
-
+#pragma mark - Singleton Methods
 + (ScreenManager*)sharedInstance;
 
+#pragma mark - Public Methods
 - (id)init;
 - (void)addDelegate:(id<ScreenManagerDelegate>)delegate;
 - (void)removeDelegate:(id<ScreenManagerDelegate>)delegate;
-
+- (UIScreen*)externalScreen;
+- (void)checkForExistingScreens;
 
 
 @end
