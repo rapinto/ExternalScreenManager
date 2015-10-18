@@ -49,7 +49,6 @@
 - (void)addDelegate:(id<ScreenManagerDelegate>)delegate;
 - (void)removeDelegate:(id<ScreenManagerDelegate>)delegate;
 - (UIScreen*)externalScreen;
-- (void)checkForExistingScreens;
 
 
 @end

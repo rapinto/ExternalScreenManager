@@ -69,7 +69,6 @@ static ScreenManager* sharedInstance;
     if (self)
     {
         _delegates = [NSMutableArray array];
-        [self checkForExistingScreens];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(handleScreenDidConnectNotification:)
@@ -89,6 +88,13 @@ static ScreenManager* sharedInstance;
 - (void)addDelegate:(id<ScreenManagerDelegate>)delegate;
 {
     [self.delegates addObject:delegate];
+    
+    
+    UIScreen* lExternalScreen = [self externalScreen];
+    if (lExternalScreen)
+    {
+        [delegate screenDidConnect:lExternalScreen];
+    }
 }
 
 
@@ -130,20 +136,6 @@ static ScreenManager* sharedInstance;
     }
     
     return nil;
-}
-
-
-- (void)checkForExistingScreens
-{
-    UIScreen* lExternalScreen = [self externalScreen];
-    
-    if (lExternalScreen)
-    {
-        for (id<ScreenManagerDelegate> aDelegate in _delegates)
-        {
-            [aDelegate screenDidConnect:lExternalScreen];
-        }
-    }
 }
 
 
