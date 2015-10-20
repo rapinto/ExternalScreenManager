@@ -15,12 +15,12 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "ScreenManager"
-  s.version      = "1.2.2"
+  s.name         = "ExternalScreenManager"
+  s.version      = "1.0.0"
   s.summary      = "Get notified when a new screen is available through airplay"
 
   s.description  = <<-DESC
-                   A longer description of ScreenManager in Markdown format.
+                   A longer description of ExternalScreenManager in Markdown format.
 
                    * Think: Why did you write this? What is the focus? What does it do?
                    * CocoaPods will be using this to generate tags, and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                    * Finally, don't worry about the indent, CocoaPods strips it!
                    DESC
 
-  s.homepage     = "https://github.com/rapinto/ScreenManager"
+  s.homepage     = "https://github.com/rapinto/ExternalScreenManager"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/rapinto/ScreenManager.git", :tag => s.version }
+  s.source       = { :git => "https://github.com/rapinto/ExternalScreenManager.git", :tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

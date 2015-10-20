@@ -1,5 +1,5 @@
 //
-//  ScreenManager.h
+//  ExternalScreenManager.h
 //
 //
 //  Created by Raphaël Pinto on 31/08/2015.
@@ -31,23 +31,32 @@
 
 
 
-@protocol ScreenManagerDelegate;
+@protocol ExternalScreenManagerDelegate
+
+- (void)screenDidConnect:(UIScreen*)screen;
+- (void)screenDidDisconnect:(UIScreen*)screen;
+
+@end
 
 
 
-@interface ScreenManager : NSObject
+
+@interface ExternalScreenManager : NSObject
 
 
 
 @property (nonatomic, strong) NSMutableArray* delegates;
+@property (nonatomic, strong) UIScreen* externalScreen;
+
+
 
 #pragma mark - Singleton Methods
-+ (ScreenManager*)sharedInstance;
++ (ExternalScreenManager*)sharedInstance;
 
 #pragma mark - Public Methods
 - (id)init;
-- (void)addDelegate:(id<ScreenManagerDelegate>)delegate;
-- (void)removeDelegate:(id<ScreenManagerDelegate>)delegate;
+- (void)addDelegate:(id<ExternalScreenManagerDelegate>)delegate;
+- (void)removeDelegate:(id<ExternalScreenManagerDelegate>)delegate;
 - (UIScreen*)externalScreen;
 
 

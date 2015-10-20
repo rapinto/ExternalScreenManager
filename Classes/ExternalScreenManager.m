@@ -1,5 +1,5 @@
 //
-//  ScreenManager.m
+//  ExternalScreenManager.m
 //
 //
 //  Created by Raphaël Pinto on 31/08/2015.
@@ -27,12 +27,15 @@
 
 
 
-#import "ScreenManager.h"
-#import "ScreenManagerDelegate.h"
+#import "ExternalScreenManager.h"
 
 
 
-@implementation ScreenManager
+@implementation ExternalScreenManager
+
+
+
+@synthesize externalScreen;
 
 
 
@@ -41,15 +44,15 @@
 
 
 
-static ScreenManager* sharedInstance;
+static ExternalScreenManager* sharedInstance;
 
 
 
-+ (ScreenManager*)sharedInstance
++ (ExternalScreenManager*)sharedInstance
 {
     if (!sharedInstance)
     {
-        sharedInstance = [[ScreenManager alloc] init];
+        sharedInstance = [[ExternalScreenManager alloc] init];
     }
     
     return sharedInstance;
@@ -85,7 +88,7 @@ static ScreenManager* sharedInstance;
 }
 
 
-- (void)addDelegate:(id<ScreenManagerDelegate>)delegate;
+- (void)addDelegate:(id<ExternalScreenManagerDelegate>)delegate;
 {
     [self.delegates addObject:delegate];
     
@@ -98,7 +101,7 @@ static ScreenManager* sharedInstance;
 }
 
 
-- (void)removeDelegate:(id<ScreenManagerDelegate>)delegate;
+- (void)removeDelegate:(id<ExternalScreenManagerDelegate>)delegate;
 {
     [self.delegates removeObject:delegate];
 }
@@ -149,12 +152,11 @@ static ScreenManager* sharedInstance;
 {
     if ([_delegates count] > 0 && [notification object] && [[notification object] isKindOfClass:[UIScreen class]])
     {
-        UIScreen* lScreen = (UIScreen*)[notification object];
+        externalScreen = (UIScreen*)[notification object];
         
-        
-        for (id<ScreenManagerDelegate> aDelegate in _delegates)
+        for (id<ExternalScreenManagerDelegate> aDelegate in _delegates)
         {
-            [aDelegate screenDidConnect:lScreen];
+            [aDelegate screenDidConnect:externalScreen];
         }
     }
 }
@@ -165,8 +167,9 @@ static ScreenManager* sharedInstance;
     if ([notification object] && [[notification object] isKindOfClass:[UIScreen class]])
     {
         UIScreen* lScreen = (UIScreen*)[notification object];
+        externalScreen = nil;
         
-        for (id<ScreenManagerDelegate> aDelegate in _delegates)
+        for (id<ExternalScreenManagerDelegate> aDelegate in _delegates)
         {
             [aDelegate screenDidDisconnect:lScreen];
         }
